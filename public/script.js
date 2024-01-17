@@ -2,7 +2,7 @@ let isStarted = false;
 document.getElementById('magicButton').style.display = 'none';
 
 let score = 0;
-let balance = localStorage.getItem("balance") ?? 100;
+let balance = localStorage.getItem("balance") || 100;
 
 console.log({balance}, localStorage.getItem("balance"))
 document.getElementById("balance").innerHTML = balance;
@@ -145,7 +145,8 @@ const createButton = (id) => {
 
 		if (magicButtons?.length === score) {
 			document.body.innerHTML = '<div style="display:flex;width:100%;height:100%;flex:1;align-items:center;justify-content:center"><div style="text-align:center"><h1>You Win!</h1><p style="color: #8f7528" onClick="refreshPage()">Play again.</p></div></div>';
-			localStorage.setItem("balance", balance + 10);
+			
+			localStorage.setItem("balance", +balance + 10);
 			// createScoreBox()
 			console.log("You Win!");
 		}
@@ -166,8 +167,12 @@ const createButton = (id) => {
 
 // Function to start the game
 const startGame = () => {
-	document.getElementById('magicButton').innerHTML = "Press Me!";
 	document.getElementById('magicButton').style.display = 'block';
+	document.getElementById('magicButton').style.textAlign = 'center';
+	document.getElementById('magicButton').style.display = 'flex';
+	document.getElementById('magicButton').style.justifyContent = 'center';
+	document.getElementById('magicButton').style.alignItems = 'center';
+	document.getElementById('magicButton').innerHTML = "Press Me!";
 
 	setTimeout(() => {
 		document.getElementById('magicButton').style.backgroundImage = 'linear-gradient(to right, green, red)';
@@ -189,8 +194,7 @@ const startGame = () => {
 		// Clear the document's innerHTML
 		document.body.innerHTML = '<div style="display:flex;width:100%;height:100%;flex:1;align-items:center;justify-content:center"><div style="text-align:center"><h1>Game Over!</h1><p style="color: #8f7528" onClick="refreshPage()">Play again.</p></div></div>';
 		// createScoreBox()
-		console.log("Game Over!", balance - 10);
-		localStorage.setItem("balance", balance - 10);
+		localStorage.setItem("balance", +balance - 10);
 		
 	}
 };
